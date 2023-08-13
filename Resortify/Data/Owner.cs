@@ -6,16 +6,14 @@ namespace Resortify.Data
 {
     public class Owner
     {
-        int Id { get; set; }
-        [Required]
-        [MaxLength(MaxFirstNameLength)]
-        public string FirstName { get; set; }
-        [Required]
-        [MaxLength(MaxLastNameLength)]
-        public string LastName { get; set; }
+        [Key] 
+        public int Id { get; set; }
+
         [Required]
         [ForeignKey(nameof(UserId))]
         public ResortifyUser User { get; set; }
-        public int UserId { get; set; }
+        [Required]
+        public string UserId { get; set; }
+        public List<Accomodation> Accomodations { get; set; }
     }
 }

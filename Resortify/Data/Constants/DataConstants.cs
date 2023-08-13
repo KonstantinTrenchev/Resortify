@@ -6,6 +6,7 @@
         {
             public const int MaxUsernameLength = 256;
             public const int MinUsernameLength = 4;
+            public const int MaxPasswordLength = 100;
             public const int MinPasswordLength = 8;
         }
 
