@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApplication1.Data;
+using Resortify.Data;
 
 #nullable disable
 
-namespace WebApplication1.Data.Migrations
+namespace Resortify.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20230813202808_Resortify_Base_Migration")]

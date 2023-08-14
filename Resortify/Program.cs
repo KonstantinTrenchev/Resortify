@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data;
+using Resortify.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

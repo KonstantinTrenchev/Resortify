@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace WebApplication1.Data.Migrations
+namespace Resortify.Data.Migrations
 {
     public partial class Resortify_Base_Migration : Migration
     {

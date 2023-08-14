@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Resortify.Data;
 
-namespace WebApplication1.Data
+namespace Resortify.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
