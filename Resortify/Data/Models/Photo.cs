@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 
-namespace Resortify.Data
+namespace Resortify.Data.Models
 {
     public class Photo
     {

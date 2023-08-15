@@ -230,7 +230,7 @@ namespace Resortify.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Resortify.Data.Accomodation", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Accomodation", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -266,7 +266,7 @@ namespace Resortify.Data.Migrations
                     b.ToTable("Accomodations");
                 });
 
-            modelBuilder.Entity("Resortify.Data.Owner", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Owner", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -292,7 +292,7 @@ namespace Resortify.Data.Migrations
                     b.ToTable("Owners");
                 });
 
-            modelBuilder.Entity("Resortify.Data.Photo", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -314,7 +314,31 @@ namespace Resortify.Data.Migrations
                     b.ToTable("Photos");
                 });
 
-            modelBuilder.Entity("Resortify.Data.ResortifyUser", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Rent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccomodationId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RentEndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("RentStartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccomodationId");
+
+                    b.ToTable("Rents");
+                });
+
+            modelBuilder.Entity("Resortify.Data.Models.ResortifyUser", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
@@ -382,9 +406,9 @@ namespace Resortify.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Resortify.Data.Accomodation", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Accomodation", b =>
                 {
-                    b.HasOne("Resortify.Data.Owner", "Owner")
+                    b.HasOne("Resortify.Data.Models.Owner", "Owner")
                         .WithMany("Accomodations")
                         .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -393,15 +417,15 @@ namespace Resortify.Data.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("Resortify.Data.Owner", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Owner", b =>
                 {
-                    b.HasOne("Resortify.Data.ResortifyUser", null)
+                    b.HasOne("Resortify.Data.Models.ResortifyUser", null)
                         .WithOne()
-                        .HasForeignKey("Resortify.Data.Owner", "UserId")
+                        .HasForeignKey("Resortify.Data.Models.Owner", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Resortify.Data.ResortifyUser", "User")
+                    b.HasOne("Resortify.Data.Models.ResortifyUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -410,9 +434,9 @@ namespace Resortify.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Resortify.Data.Photo", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Photo", b =>
                 {
-                    b.HasOne("Resortify.Data.Accomodation", "Accomodation")
+                    b.HasOne("Resortify.Data.Models.Accomodation", "Accomodation")
                         .WithMany("Photos")
                         .HasForeignKey("AccomodationId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -421,12 +445,25 @@ namespace Resortify.Data.Migrations
                     b.Navigation("Accomodation");
                 });
 
-            modelBuilder.Entity("Resortify.Data.Accomodation", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Rent", b =>
                 {
+                    b.HasOne("Resortify.Data.Models.Accomodation", "Accomodation")
+                        .WithMany("AccomoditionRents")
+                        .HasForeignKey("AccomodationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Accomodation");
+                });
+
+            modelBuilder.Entity("Resortify.Data.Models.Accomodation", b =>
+                {
+                    b.Navigation("AccomoditionRents");
+
                     b.Navigation("Photos");
                 });
 
-            modelBuilder.Entity("Resortify.Data.Owner", b =>
+            modelBuilder.Entity("Resortify.Data.Models.Owner", b =>
                 {
                     b.Navigation("Accomodations");
                 });

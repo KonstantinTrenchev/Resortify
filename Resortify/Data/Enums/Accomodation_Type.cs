@@ -2,8 +2,9 @@
 {
     public enum Accomodation_Type
     {
-        hotel,
-        hostel,
-        house
+        Room,
+        Apartment,
+        House,
+        Studio
     }
 }

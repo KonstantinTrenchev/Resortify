@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using static Resortify.Data.Constants.DataConstants.Owner;
 
-namespace Resortify.Data
+namespace Resortify.Data.Models
 {
     public class Owner
     {
-        [Key] 
+        [Key]
         public int Id { get; set; }
 
         [Required]

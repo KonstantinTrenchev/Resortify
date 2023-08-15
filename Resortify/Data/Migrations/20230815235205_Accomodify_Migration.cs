@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace Resortify.Data.Migrations
 {
-    public partial class Resortify_Base_Migration : Migration
+    public partial class Accomodify_Migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -99,6 +100,27 @@ namespace Resortify.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Rents",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RentStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RentEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    AccomodationId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Rents", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Rents_Accomodations_AccomodationId",
+                        column: x => x.AccomodationId,
+                        principalTable: "Accomodations",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Accomodations_OwnerId",
                 table: "Accomodations",
@@ -119,12 +141,20 @@ namespace Resortify.Data.Migrations
                 name: "IX_Photos_AccomodationId",
                 table: "Photos",
                 column: "AccomodationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Rents_AccomodationId",
+                table: "Rents",
+                column: "AccomodationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Photos");
+
+            migrationBuilder.DropTable(
+                name: "Rents");
 
             migrationBuilder.DropTable(
                 name: "Accomodations");

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Resortify.Data;
+using Resortify.Data.Models;
 
 namespace Resortify.Data
 {
@@ -13,6 +13,7 @@ namespace Resortify.Data
         public DbSet<Accomodation> Accomodations { get; init; }
         public DbSet<Photo> Photos { get; init; }
         public DbSet<Owner> Owners { get; set; }
+        public DbSet<Rent> Rents { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder

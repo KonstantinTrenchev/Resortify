@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using static Resortify.Data.Constants.DataConstants.UserConstants;
 
-namespace Resortify.Data;
+namespace Resortify.Data.Models;
 
 // Add profile data for application users by adding properties to the ResortifyUser class
 public class ResortifyUser : IdentityUser

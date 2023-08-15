@@ -11069,9 +11069,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\TOP\\Desktop\\Resortify\\Resortify\\Resortify.csproj",
-      "projectName": "Resortify",
-      "projectPath": "C:\\Users\\TOP\\Desktop\\Resortify\\Resortify\\Resortify.csproj",
+      "projectUniqueName": "C:\\Users\\TOP\\Desktop\\Resortify\\Resortify\\Accomodify.csproj",
+      "projectName": "Accomodify",
+      "projectPath": "C:\\Users\\TOP\\Desktop\\Resortify\\Resortify\\Accomodify.csproj",
       "packagesPath": "C:\\Users\\TOP\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\TOP\\Desktop\\Resortify\\Resortify\\obj\\",
       "projectStyle": "PackageReference",
