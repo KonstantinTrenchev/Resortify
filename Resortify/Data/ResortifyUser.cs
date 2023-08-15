@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
-using static Resortify.Data.Constants.DataConstants.Owner;
+using static Resortify.Data.Constants.DataConstants.UserConstants;
 
 namespace Resortify.Data;
 

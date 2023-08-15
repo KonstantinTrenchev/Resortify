@@ -508,9 +508,9 @@ C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\staticwebassets\msbuil
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\staticwebassets.pack.json
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\staticwebassets.development.json
-C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\scopedcss\Pages\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\scopedcss\bundle\Resortify.styles.css
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\scopedcss\projectbundle\Resortify.bundle.scp.css
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\Resortify.csproj.CopyComplete
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\Resortify.genruntimeconfig.cache
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\ref\Resortify.dll
+C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
