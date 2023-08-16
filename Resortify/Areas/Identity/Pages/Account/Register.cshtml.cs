@@ -18,7 +18,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using static Resortify.Data.Constants.DataConstants.UserConstants;
 
 namespace Resortify.Areas.Identity.Pages.Account
 {
@@ -71,10 +70,6 @@ namespace Resortify.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
-            [Required]
-            [Display(Name = "First Name")]
-            [StringLength(MaxFirstNameLength, ErrorMessage ="[0] should be between [2] and [1] characters",MinimumLength = MinFirstLength)]
-            public string FirstName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.

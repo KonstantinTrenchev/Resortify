@@ -36,6 +36,11 @@ namespace Resortify.Data
                 .WithOne()
                 .HasForeignKey<Owner>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Rent>()
+                .HasOne(r => r.Accomodation)
+                .WithMany(a => a.AccomoditionRents)
+                .HasForeignKey(r => r.AccomodationId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.
