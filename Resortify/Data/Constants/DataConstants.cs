@@ -28,9 +28,9 @@
 
         public class Owner
         {
-            public const int MaxPasswordLength = 256;
             public const int MaxPhoneNumberLength = 15;
             public const int MinPhoneNumberLength = 7;
+            public const int MaxAgnecyNameLength = 20;
         }
     }
 }

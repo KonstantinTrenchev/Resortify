@@ -274,11 +274,12 @@ namespace Resortify.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("Agency")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
@@ -286,8 +287,6 @@ namespace Resortify.Migrations
 
                     b.HasIndex("UserId")
                         .IsUnique();
-
-                    b.HasIndex("UserId1");
 
                     b.ToTable("Owners");
                 });
@@ -419,16 +418,10 @@ namespace Resortify.Migrations
 
             modelBuilder.Entity("Resortify.Data.Models.Owner", b =>
                 {
-                    b.HasOne("Resortify.Data.Models.ResortifyUser", null)
+                    b.HasOne("Resortify.Data.Models.ResortifyUser", "User")
                         .WithOne()
                         .HasForeignKey("Resortify.Data.Models.Owner", "UserId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Resortify.Data.Models.ResortifyUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId1")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");

@@ -31,9 +31,9 @@ namespace Resortify.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
-                .Entity<Owner>()
-                .HasOne<ResortifyUser>()
-                .WithOne()
+                .Entity<ResortifyUser>()
+                .HasOne<Owner>()
+                .WithOne(o => o.User)
                 .HasForeignKey<Owner>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Rent>()

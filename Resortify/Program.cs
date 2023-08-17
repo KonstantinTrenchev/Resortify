@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Resortify.Data;
 using Resortify.Data.Models;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LoginPath = "/User/Login";
     options.LogoutPath = "/User/Logout";
 });
+builder.Services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 builder.Services.AddRazorPages();
 builder.Services.AddAuthorization(options =>
 {

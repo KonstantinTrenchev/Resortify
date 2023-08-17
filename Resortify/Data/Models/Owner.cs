@@ -14,6 +14,8 @@ namespace Resortify.Data.Models
         public ResortifyUser User { get; set; }
         [Required]
         public string UserId { get; set; }
+        [MaxLength(MaxAgnecyNameLength)]
+        public string Agency{ get; set; }
         public List<Accomodation> Accomodations { get; set; }
     }
 }
