@@ -3,8 +3,8 @@
     public enum Accomodation_Type
     {
         Room,
+        Studio,
         Apartment,
-        House,
-        Studio
+        House
     }
 }

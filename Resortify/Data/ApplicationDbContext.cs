@@ -11,36 +11,23 @@ namespace Resortify.Data
         {
         }
         public DbSet<Accomodation> Accomodations { get; init; }
-        public DbSet<Photo> Photos { get; init; }
+        public DbSet<Comment> Comments { get; init; }
         public DbSet<Owner> Owners { get; set; }
         public DbSet<Rent> Rents { get; set; }
+        //public DbSet<OwnerAccomodation> OwnerAccomodations { get; set; }
+        //public DbSet<AccomodationComment> AccomodationComments { get; set; }
+        //public DbSet<AccomodationRent> AccomodationRents { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder
-                    .Entity<Accomodation>()
-                    .HasOne(a => a.Owner)
-                    .WithMany(o => o.Accomodations)
-                    .HasForeignKey(c => c.OwnerId)
-                    .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .Entity<Photo>()
-                .HasOne(p => p.Accomodation)
-                .WithMany(a => a.Photos)
-                .HasForeignKey(p => p.AccomodationId)
-                .OnDelete(DeleteBehavior.Restrict);
 
-            builder
-                .Entity<ResortifyUser>()
-                .HasOne<Owner>()
-                .WithOne(o => o.User)
-                .HasForeignKey<Owner>(d => d.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
-            builder.Entity<Rent>()
-                .HasOne(r => r.Accomodation)
-                .WithMany(a => a.AccomoditionRents)
-                .HasForeignKey(r => r.AccomodationId)
-                .OnDelete(DeleteBehavior.Restrict);
+            //builder
+            //    .Entity<ResortifyUser>()
+            //    .HasOne<Owner>()
+            //    .WithOne(o => o.User)
+            //    .HasForeignKey<Owner>(o => o.UserId);
+
 
             base.OnModelCreating(builder);
             // Customize the ASP.NET Identity model and override the defaults if needed.

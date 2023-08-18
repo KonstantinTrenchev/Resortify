@@ -11,8 +11,7 @@ namespace Resortify.Data.Models
         public DateTime RentStartDate { get; set; }
         [Required]
         public DateTime RentEndDate { get; set; }
-        [ForeignKey(nameof(AccomodationId))]
+        [Required]
         public Accomodation Accomodation { get; set; }
-        public int AccomodationId { get; set; }
     }
 }

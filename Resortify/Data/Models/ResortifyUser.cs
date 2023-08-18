@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
@@ -17,6 +18,7 @@ public class ResortifyUser : IdentityUser
     [Required]
     [MaxLength(MaxLastNameLength)]
     public string LastName { get; set; }
-
+    [AllowNull]
+    public int OwnerId{ get; set; }
 }
 

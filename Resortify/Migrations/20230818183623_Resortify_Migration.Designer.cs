@@ -12,7 +12,7 @@ using Resortify.Data;
 namespace Resortify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230816202954_Resortify_Migration")]
+    [Migration("20230818183623_Resortify_Migration")]
     partial class Resortify_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -244,6 +244,10 @@ namespace Resortify.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsRentedOut")
                         .HasColumnType("bit");
 
@@ -252,8 +256,8 @@ namespace Resortify.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
@@ -268,6 +272,28 @@ namespace Resortify.Migrations
                     b.ToTable("Accomodations");
                 });
 
+            modelBuilder.Entity("Resortify.Data.Models.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccomodationId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CommentText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccomodationId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Resortify.Data.Models.Owner", b =>
                 {
                     b.Property<int>("Id")
@@ -278,8 +304,8 @@ namespace Resortify.Migrations
 
                     b.Property<string>("Agency")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -291,28 +317,6 @@ namespace Resortify.Migrations
                         .IsUnique();
 
                     b.ToTable("Owners");
-                });
-
-            modelBuilder.Entity("Resortify.Data.Models.Photo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AccomodationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("URL")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AccomodationId");
-
-                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Resortify.Data.Models.Rent", b =>
@@ -412,10 +416,21 @@ namespace Resortify.Migrations
                     b.HasOne("Resortify.Data.Models.Owner", "Owner")
                         .WithMany("Accomodations")
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("Resortify.Data.Models.Comment", b =>
+                {
+                    b.HasOne("Resortify.Data.Models.Accomodation", "Accomodation")
+                        .WithMany("AccomodationComments")
+                        .HasForeignKey("AccomodationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Accomodation");
                 });
 
             modelBuilder.Entity("Resortify.Data.Models.Owner", b =>
@@ -423,21 +438,10 @@ namespace Resortify.Migrations
                     b.HasOne("Resortify.Data.Models.ResortifyUser", "User")
                         .WithOne()
                         .HasForeignKey("Resortify.Data.Models.Owner", "UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Resortify.Data.Models.Photo", b =>
-                {
-                    b.HasOne("Resortify.Data.Models.Accomodation", "Accomodation")
-                        .WithMany("Photos")
-                        .HasForeignKey("AccomodationId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Accomodation");
                 });
 
             modelBuilder.Entity("Resortify.Data.Models.Rent", b =>
@@ -445,7 +449,7 @@ namespace Resortify.Migrations
                     b.HasOne("Resortify.Data.Models.Accomodation", "Accomodation")
                         .WithMany("AccomoditionRents")
                         .HasForeignKey("AccomodationId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Accomodation");
@@ -453,9 +457,9 @@ namespace Resortify.Migrations
 
             modelBuilder.Entity("Resortify.Data.Models.Accomodation", b =>
                 {
-                    b.Navigation("AccomoditionRents");
+                    b.Navigation("AccomodationComments");
 
-                    b.Navigation("Photos");
+                    b.Navigation("AccomoditionRents");
                 });
 
             modelBuilder.Entity("Resortify.Data.Models.Owner", b =>

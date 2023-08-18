@@ -4,13 +4,11 @@ using System.Runtime.InteropServices;
 
 namespace Resortify.Data.Models
 {
-    public class Photo
+    public class Comment
     {
-        [Key]
         public int Id { get; set; }
-        public string URL { get; set; }
-        [ForeignKey(nameof(AccomodationId))]
+        [Required]
+        public string CommentText { get; set; }
         public Accomodation Accomodation { get; set; }
-        public int AccomodationId { get; set; }
     }
 }

@@ -14,7 +14,7 @@ namespace Resortify.Controllers
 
         public OwnerController(ApplicationDbContext data, UserManager<ResortifyUser> userManager)
         {
-            this.data = data; 
+            this.data = data;
             this.userManager = userManager;
         }
         [Authorize]
@@ -22,7 +22,7 @@ namespace Resortify.Controllers
         {
             return View();
         }
-    
+
 
         [HttpPost]
         [Authorize]
@@ -32,7 +32,7 @@ namespace Resortify.Controllers
             string userId = user.Id;
             if (user == null)
             {
-                return BadRequest();                            
+                return BadRequest();
             }
 
             var userIdAlreadyOwner = this.data
@@ -48,13 +48,22 @@ namespace Resortify.Controllers
             {
                 return View(owner);
             }
-
-            var ownerData = new Owner
+            var ownerData = new Owner();
+            var ownerAgency = owner.Agency.Trim();
+            if (owner.Agency == null)
             {
-                
-                Agency = owner.Agency,
-                UserId = userId
-            };
+
+                ownerData.Agency = "Independent";
+                ownerData.UserId = userId;
+
+                   
+            }
+            else
+            {
+                ownerData.Agency = ownerAgency;
+                ownerData.UserId = userId;
+            }
+            
             user.PhoneNumber = owner.PhoneNumber;
 
             this.data.Owners.Add(ownerData);

@@ -16,21 +16,21 @@
 
         public class AccomoditionConstants
         {
-            public const int MaxAccomodationNameLength = 20;
+            public const int MaxAccomodationNameLength = 50;
             public const int MinAccomodationNameLength = 2;
             public const int DescriptionMinLength = 10;
         }
 
-        public class Photo
+        public class PhotoConstants
         {
             public const int MinURLLength = 4;
         }
 
-        public class Owner
+        public class OwnerConstants
         {
             public const int MaxPhoneNumberLength = 15;
             public const int MinPhoneNumberLength = 7;
-            public const int MaxAgnecyNameLength = 20;
+            public const int MaxAgnecyNameLength = 50;
         }
     }
 }

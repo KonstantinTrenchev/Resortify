@@ -1,11 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static Resortify.Data.Constants.DataConstants.Owner;
+using static Resortify.Data.Constants.DataConstants.OwnerConstants;
 
 namespace Resortify.Data.Models
 {
     public class Owner
     {
+        public Owner()
+        {
+            this.Accomodations = new List<Accomodation>();
+        }
         [Key]
         public int Id { get; set; }
 
@@ -15,7 +19,7 @@ namespace Resortify.Data.Models
         [Required]
         public string UserId { get; set; }
         [MaxLength(MaxAgnecyNameLength)]
-        public string Agency{ get; set; }
-        public List<Accomodation> Accomodations { get; set; }
+        public string? Agency{ get; set; }
+        public ICollection<Accomodation> Accomodations { get; set; }
     }
 }

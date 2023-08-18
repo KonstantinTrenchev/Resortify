@@ -164,7 +164,7 @@ namespace Resortify.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Agency = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
+                    Agency = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -174,7 +174,7 @@ namespace Resortify.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -183,11 +183,12 @@ namespace Resortify.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
                     OwnerId = table.Column<int>(type: "int", nullable: false),
                     MaxRenterCount = table.Column<int>(type: "int", nullable: false),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsRentedOut = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -198,27 +199,27 @@ namespace Resortify.Migrations
                         column: x => x.OwnerId,
                         principalTable: "Owners",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Photos",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    URL = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CommentText = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     AccomodationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Photos", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Photos_Accomodations_AccomodationId",
+                        name: "FK_Comments_Accomodations_AccomodationId",
                         column: x => x.AccomodationId,
                         principalTable: "Accomodations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -239,7 +240,7 @@ namespace Resortify.Migrations
                         column: x => x.AccomodationId,
                         principalTable: "Accomodations",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -287,15 +288,15 @@ namespace Resortify.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Comments_AccomodationId",
+                table: "Comments",
+                column: "AccomodationId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Owners_UserId",
                 table: "Owners",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Photos_AccomodationId",
-                table: "Photos",
-                column: "AccomodationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rents_AccomodationId",
@@ -321,7 +322,7 @@ namespace Resortify.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "Photos");
+                name: "Comments");
 
             migrationBuilder.DropTable(
                 name: "Rents");

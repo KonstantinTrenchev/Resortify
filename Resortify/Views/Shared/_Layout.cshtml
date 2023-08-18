@@ -1,4 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.EntityFrameworkCore;
+@using Resortify.Data.Models;
+
+@inject SignInManager<ResortifyUser> SignInManager
+@inject UserManager<ResortifyUser> UserManager
+@inject ApplicationDbContext dbContext
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,12 +26,30 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                   
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            ResortifyUser user = await UserManager.FindByNameAsync(User.Identity.Name);
+                            bool isOwner = await dbContext.Owners.AnyAsync(o => o.UserId == user.Id);
+                            if (isOwner)
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Accomodation" asp-action="Add">Add Accomodation</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Become">Become an owner</a>
+                                </li>
+                            }
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
