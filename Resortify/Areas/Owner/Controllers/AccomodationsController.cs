@@ -1,19 +1,19 @@
 ﻿//using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Identity;
 //using Microsoft.AspNetCore.Mvc;
+//using Resortify.Areas.Owner.Models;
 //using Resortify.Controllers;
 //using Resortify.Data;
 //using Resortify.Data.Models;
-//using Resortify.Models.Owner;
 
 //namespace Resortify.Areas.Owner.Controllers
 //{
-//    public class OwnerController : Controller
+//    public class AccomodationsController : OwnerController
 //    {
 //        private readonly ApplicationDbContext data;
 //        private readonly UserManager<ResortifyUser> userManager;
 
-//        public OwnerController(ApplicationDbContext data, UserManager<ResortifyUser> userManager)
+//        public AccomodationsController(ApplicationDbContext data, UserManager<ResortifyUser> userManager)
 //        {
 //            this.data = data;
 //            this.userManager = userManager;
@@ -30,15 +30,15 @@
 //        public async Task<IActionResult> Become(BecomeOwnerViewModel owner)
 //        {
 //            ResortifyUser user = await userManager.FindByNameAsync(User.Identity.Name);
-//            Guid userId = user.Id;
+//            string userId = user.Id;
 //            if (user == null)
 //            {
 //                return BadRequest();
 //            }
 
-//            var userIdAlreadyOwner = data
-//                .Owners
-//                .Any(d => d.UserId == userId);
+//            //var userIdAlreadyOwner = data
+//            //    .Owners
+//            //    .Any(d => d.UserId == userId);
 
 //            if (userIdAlreadyOwner)
 //            {

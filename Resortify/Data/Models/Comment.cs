@@ -6,10 +6,9 @@ namespace Resortify.Data.Models
 {
     public class Comment
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         public string CommentText { get; set; }
-        public int AccomodationId { get; set; }
         public Accomodation Accomodation { get; set; }
     }
 }

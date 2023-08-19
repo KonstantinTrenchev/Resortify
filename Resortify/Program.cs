@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Resortify.Data;
 using Resortify.Data.Models;
+using Resortify.Views;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,13 +20,13 @@ builder.Services.AddDefaultIdentity<ResortifyUser>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
     options.SignIn.RequireConfirmedEmail = false;
-})
-    .AddRoles<IdentityRole>()
+}).AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.LoginPath = "/User/Login";
     options.LogoutPath = "/User/Logout";
+
 });
 builder.Services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 builder.Services.AddRazorPages();
@@ -68,5 +69,6 @@ app.MapControllerRoute(
     );
 
 app.MapRazorPages();
+app.CreateRolesAsync(builder.Configuration);
 
 app.Run();

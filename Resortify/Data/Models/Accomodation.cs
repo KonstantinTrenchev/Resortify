@@ -10,11 +10,11 @@ namespace Resortify.Data.Models
         public Accomodation()
         {
             this.AccomoditionRents = new List<Rent>();
-            this.AccomodationComments= new List<Comment>();
+            this.AccomodationComments = new List<Comment>();
         }
-      
+
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         [Required]
         [MaxLength(MaxAccomodationNameLength)]
         public string Name { get; set; }
@@ -23,8 +23,7 @@ namespace Resortify.Data.Models
         [Required]
         public Accomodation_Type Type { get; set; }
         public ICollection<Comment> AccomodationComments { get; set; }
-        public int OwnerId { get; set; }
-        public Owner Owner { get; set; }
+        public ResortifyUser Owner { get; set; }
         public int MaxRenterCount { get; set; }
         public string ImageUrl { get; set; }
         public ICollection<Rent> AccomoditionRents { get; set; }
