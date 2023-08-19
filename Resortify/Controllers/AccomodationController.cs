@@ -93,5 +93,25 @@ namespace Resortify.Controllers
             };
             return View(accomodationDetails);
         }
+        public async Task<IActionResult> Mine(int id)
+        {
+           
+            Owner owner = await data.Owners.FindAsync(accomodation.OwnerId);
+            ResortifyUser userIdentity = await userManager.FindByIdAsync(owner.UserId);
+            string RentedOut = $"{accomodation.AccomoditionRents.Count}/{accomodation.MaxRenterCount}";
+            AccomodationDetailsViewModel accomodationDetails = new AccomodationDetailsViewModel
+            {
+                Id = accomodation.Id,
+                Name = accomodation.Name,
+                OwnerId = owner.Id,
+                OwnerName = userIdentity.FullName,
+                OwnerAgency = owner.Agency,
+                OwnerPhoneNumber = owner.User.PhoneNumber,
+                ImageUrl = accomodation.ImageUrl,
+                Description = accomodation.Description,
+                HaveAlreadyRented = RentedOut
+            };
+            return View(accomodationDetails);
+        }
     }
 }
