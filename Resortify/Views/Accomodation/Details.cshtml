@@ -1,0 +1,19 @@
+﻿@model AccomodationDetailsViewModel
+@{
+    ViewData["Title"] = Model.Name;
+}
+<h1 class="text-center">@ViewData["Title"]</h1>
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <section>
+            <h1>Description:</h1>
+            <h2>@Model.Description</h2>
+            <h1>Owner:</h1>
+            <h2>@Model.OwnerName</h2>
+            <h1>Phone Number:</h1>
+            <h2>@Model.OwnerPhoneNumber</h2>
+            <h1>Have Already Rented:</h1>
+            <h2>@Model.HaveAlreadyRented</h2>
+</section>
+</div>
+</div>

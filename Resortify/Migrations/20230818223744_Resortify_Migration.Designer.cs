@@ -12,8 +12,8 @@ using Resortify.Data;
 namespace Resortify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230818190531_Resortify_Migration_Try2")]
-    partial class Resortify_Migration_Try2
+    [Migration("20230818223744_Resortify_Migration")]
+    partial class Resortify_Migration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -38,9 +38,7 @@ namespace Resortify.Controllers
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            Console.WriteLine(ModelState.Count);
-            
+        {            
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -51,6 +49,7 @@ namespace Resortify.Controllers
                 Email = model.Email,
                 FirstName = model.FirstName,
                 LastName = model.LastName,
+                FullName = $"{model.FirstName} {model.LastName}",
                 UserName = model.UserName
             };
 

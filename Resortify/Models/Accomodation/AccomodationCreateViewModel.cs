@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using static Resortify.Data.Constants.DataConstants.AccomoditionConstants;
 namespace Resortify.Models.Accomodation
 {
-    public class CreateAccomodationViewModel
+    public class AccomodationCreateViewModel
     {
         [Required]
         [StringLength(MaxAccomodationNameLength,ErrorMessage ="[0] Must be betweeb [2] and [1] characters")]

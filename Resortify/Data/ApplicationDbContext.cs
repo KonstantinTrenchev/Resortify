@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Resortify.Data.Models;
 
@@ -10,6 +11,7 @@ namespace Resortify.Data
             : base(options)
         {
         }
+        public DbSet<ResortifyUser> Users { get; set; }
         public DbSet<Accomodation> Accomodations { get; init; }
         public DbSet<Comment> Comments { get; init; }
         public DbSet<Owner> Owners { get; set; }

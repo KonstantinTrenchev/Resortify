@@ -12,8 +12,8 @@ using Resortify.Data;
 namespace Resortify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230818183623_Resortify_Migration")]
-    partial class Resortify_Migration
+    [Migration("20230819072221_Resortify_Migration_Moved_FullName_To_ResortifyUser")]
+    partial class Resortify_Migration_Moved_FullName_To_ResortifyUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -303,7 +303,6 @@ namespace Resortify.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Agency")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -313,8 +312,7 @@ namespace Resortify.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId")
-                        .IsUnique();
+                    b.HasIndex("UserId");
 
                     b.ToTable("Owners");
                 });
@@ -352,10 +350,17 @@ namespace Resortify.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<int>("OwnerId")
+                        .HasColumnType("int");
 
                     b.HasDiscriminator().HasValue("ResortifyUser");
                 });
@@ -436,8 +441,8 @@ namespace Resortify.Migrations
             modelBuilder.Entity("Resortify.Data.Models.Owner", b =>
                 {
                     b.HasOne("Resortify.Data.Models.ResortifyUser", "User")
-                        .WithOne()
-                        .HasForeignKey("Resortify.Data.Models.Owner", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

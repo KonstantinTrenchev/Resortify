@@ -12,12 +12,12 @@ namespace Resortify.Data.Models;
 // Add profile data for application users by adding properties to the ResortifyUser class
 public class ResortifyUser : IdentityUser
 {
-    [Required]
     [MaxLength(MaxFirstNameLength)]
     public string FirstName { get; set; }
     [Required]
     [MaxLength(MaxLastNameLength)]
     public string LastName { get; set; }
+    public string FullName { get; set; }
     [AllowNull]
     public int OwnerId{ get; set; }
 }

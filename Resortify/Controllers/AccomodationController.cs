@@ -24,7 +24,7 @@ namespace Resortify.Controllers
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> Add(CreateAccomodationViewModel accomodation)
+        public async Task<IActionResult> Add(AccomodationCreateViewModel accomodation)
         {
             ResortifyUser user = await userManager.FindByNameAsync(User.Identity.Name);
             Owner ownerData = await data.Owners.FirstOrDefaultAsync(o => o.UserId == user.Id);
@@ -48,7 +48,7 @@ namespace Resortify.Controllers
                 ImageUrl = accomodation.ImageUrl,
                 IsRentedOut = false,
                 Type = accomodation.Type,
-                Owner = ownerData
+                OwnerId = ownerData.Id
                 
             };
             switch (accomodation.Type)
@@ -66,7 +66,32 @@ namespace Resortify.Controllers
             }
             data.Accomodations.Add(accomodationData);
             data.SaveChanges();
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            Console.WriteLine(ownerData.Accomodations);
+            return RedirectToAction(nameof(Details), new { id = accomodationData.Id });
+        }
+        public async Task<IActionResult> Details(int id)
+        {
+            Accomodation accomodation = await data.Accomodations.FindAsync(id);
+            if (accomodation == null)
+            {
+                return BadRequest();
+            }
+            Owner owner = await data.Owners.FindAsync(accomodation.OwnerId);
+            ResortifyUser userIdentity = await userManager.FindByIdAsync(owner.UserId);
+            string RentedOut = $"{accomodation.AccomoditionRents.Count}/{accomodation.MaxRenterCount}";
+            AccomodationDetailsViewModel accomodationDetails = new AccomodationDetailsViewModel
+            {
+                Id = accomodation.Id,
+                Name = accomodation.Name,
+                OwnerId = owner.Id,
+                OwnerName = userIdentity.FullName,
+                OwnerAgency = owner.Agency,
+                OwnerPhoneNumber = owner.User.PhoneNumber,
+                ImageUrl = accomodation.ImageUrl,
+                Description = accomodation.Description,
+                HaveAlreadyRented = RentedOut
+            };
+            return View(accomodationDetails);
         }
     }
 }

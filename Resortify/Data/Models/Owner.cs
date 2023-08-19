@@ -12,7 +12,6 @@ namespace Resortify.Data.Models
         }
         [Key]
         public int Id { get; set; }
-
         [Required]
         [ForeignKey(nameof(UserId))]
         public ResortifyUser User { get; set; }

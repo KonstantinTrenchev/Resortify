@@ -13,5 +13,6 @@ namespace Resortify.Data.Models
         public DateTime RentEndDate { get; set; }
         [Required]
         public Accomodation Accomodation { get; set; }
+        public int AccomodationId { get; set; }
     }
 }

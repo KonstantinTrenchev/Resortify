@@ -43,26 +43,18 @@ namespace Resortify.Controllers
             {
                 return BadRequest();
             }
-
+            var ownerAgency = owner.Agency.Trim();
             if (!ModelState.IsValid)
             {
                 return View(owner);
             }
-            var ownerData = new Owner();
-            var ownerAgency = owner.Agency.Trim();
-            if (owner.Agency == null)
-            {
-
-                ownerData.Agency = "Independent";
-                ownerData.UserId = userId;
-
-                   
-            }
-            else
-            {
-                ownerData.Agency = ownerAgency;
-                ownerData.UserId = userId;
-            }
+            var ownerData = new Owner { 
+            
+                Agency= owner.Agency,
+                UserId= userId,
+            };
+            
+            
             
             user.PhoneNumber = owner.PhoneNumber;
 
