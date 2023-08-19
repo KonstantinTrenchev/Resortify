@@ -1,9 +1,9 @@
-﻿//namespace Resortify.Areas.Admin.Controllers
+﻿//namespace Resortify.Controllers
 //{
 //    using Resortify.Services.Accomodation;
 //    using Microsoft.AspNetCore.Mvc;
 
-//    public class CarsController : AdminController
+//    public class AdminAccomodationController : AdminController
 //    {
 //        private readonly ICarService cars;
 

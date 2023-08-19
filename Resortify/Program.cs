@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Resortify.Data;
 using Resortify.Data.Models;
+using Resortify.Repositories;
+using Resortify.Services;
 using Resortify.Views;
 using System.Security.Claims;
 
@@ -30,14 +33,8 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 builder.Services.Configure<IdentityOptions>(options => options.ClaimsIdentity.UserIdClaimType = ClaimTypes.NameIdentifier);
 builder.Services.AddRazorPages();
-builder.Services.AddAuthorization(options =>
-{
-    options.AddPolicy("AdministratorPolicy", policy =>
-    {
-        policy.RequireRole("Admin");
-        policy.RequireClaim("EmployeeNumber");
-    });
-});
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

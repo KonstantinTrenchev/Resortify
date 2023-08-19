@@ -1,10 +1,8 @@
-﻿@*@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore;
 @using Resortify.Data.Models;
 
 @inject SignInManager<ResortifyUser> SignInManager
-@inject UserManager<ResortifyUser> UserManager
-@inject ApplicationDbContext dbContext
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,8 +33,8 @@
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
-                            ResortifyUser user = await UserManager.FindByNameAsync(User.Identity.Name);
-                            bool isOwner = await dbContext.Owners.AnyAsync(o => o.UserId == user.Id);
+
+                            bool isOwner = User.IsInRole("Owner");
                             if (isOwner)
                             {
                                 <li class="nav-item">
@@ -73,4 +71,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-*@
