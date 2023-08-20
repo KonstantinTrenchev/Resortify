@@ -12,8 +12,8 @@ using Resortify.Data;
 namespace Resortify.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230819192142_Resortify_Migration")]
-    partial class Resortify_Migration
+    [Migration("20230819235316_Restore")]
+    partial class Restore
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -230,9 +230,11 @@ namespace Resortify.Migrations
 
             modelBuilder.Entity("Resortify.Data.Models.Accomodation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -269,12 +271,14 @@ namespace Resortify.Migrations
 
             modelBuilder.Entity("Resortify.Data.Models.Comment", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AccomodationId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccomodationId")
+                        .HasColumnType("int");
 
                     b.Property<string>("CommentText")
                         .IsRequired()
@@ -289,12 +293,14 @@ namespace Resortify.Migrations
 
             modelBuilder.Entity("Resortify.Data.Models.Rent", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
 
-                    b.Property<Guid>("AccomodationId")
-                        .HasColumnType("uniqueidentifier");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccomodationId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("RentEndDate")
                         .HasColumnType("datetime2");

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Resortify.Migrations
 {
-    public partial class Resortify_Migration : Migration
+    public partial class Restore : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,7 +77,8 @@ namespace Resortify.Migrations
                 name: "Accomodations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
@@ -186,9 +187,10 @@ namespace Resortify.Migrations
                 name: "Comments",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CommentText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    AccomodationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AccomodationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -205,10 +207,11 @@ namespace Resortify.Migrations
                 name: "Rents",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RentStartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RentEndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AccomodationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    AccomodationId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

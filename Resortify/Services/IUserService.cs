@@ -1,12 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Resortify.Data.Models;
+﻿using Resortify.Data.Models;
 
 namespace Resortify.Services
 {
     public interface IUserService
     {
-        public bool IsOwner(string userId);
-        public bool IsAdmin(string userId);
-        public int IdByUser(string userId);
+       int GetCount();
+        Task<bool> MakeOwnerAsync(ResortifyUser user);
+        Task<bool> IsOwnerAsync(ResortifyUser user);
+        Task<bool> MakeAdminAsync(ResortifyUser user);
+        Task<ResortifyUser> GetByUsernameAsync(string email);
+        Task<bool> IsAdminAsync(ResortifyUser user);
+        Task<bool> MakeUserAsync(ResortifyUser user, string password);
+        Task<ResortifyUser> UserByUsernameAsync(string? name);
+        Task<ResortifyUser> GetByIdAsync(string id);
     }
 }

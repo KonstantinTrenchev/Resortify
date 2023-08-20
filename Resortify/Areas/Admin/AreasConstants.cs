@@ -10,7 +10,7 @@
         public class OwnerConstants
         {
             public const string AreaName = "Owner";
-            public const string OwnerRoleName = "Accomodation Owner";
+            public const string OwnerRoleName = "Owner";
         }
 
     }

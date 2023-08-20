@@ -1,0 +1,26 @@
+﻿@using Resortify.Data.Models;
+@using Resortify.Services;
+@model IEnumerable<AccomodationServiceModel>
+@inject IUserService UserService
+@inject ResortifyUser user
+
+<div class="row">
+    @foreach (var accomodation in Model)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img class="card-img-top" src="@accomodation.ImageUrl" alt="@accomodation.Name @accomodation.Type - @accomodation.OwnerName ()">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@accomodation.Name  @accomodation.Type @accomodation.OwnerName ()</h5>
+                    <a asp-controller="Accomodation" asp-action="Details" asp-route-id="@accomodation.Id" asp-route-information="@accomodation.Name-@accomodation.Type-@accomodation.OwnerName"*@ class="btn btn-primary">View</a>
+                    @user = await UserService.GetByUsernameAsync(this.User.Identity.Name)
+                    @if (ViewBag.AllowCarEdit == true ||UserService.IsAdminAsync(user))
+                    {
+                        <a asp-controller="Accomodition" asp-action="Edit" asp-route-id="@accomodation.Id" class="btn btn-warning">Edit</a>
+                        <a asp-controller="Accomodition" asp-action="Delete" asp-route-id="@accomodation.Id" class="btn btn-danger">Delete</a>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

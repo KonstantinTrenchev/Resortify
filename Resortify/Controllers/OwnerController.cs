@@ -1,69 +1,63 @@
-﻿//using Microsoft.AspNetCore.Authorization;
-//using Microsoft.AspNetCore.Identity;
-//using Microsoft.AspNetCore.Mvc;
-//using Resortify.Controllers;
-//using Resortify.Data;
-//using Resortify.Data.Models;
-//using Resortify.Models.Owner;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Resortify.Controllers;
+using Resortify.Data;
+using Resortify.Data.Models;
+using Resortify.Models.Owner;
+using Resortify.Repositories;
+using Resortify.Services;
 
-//namespace Resortify.Areas.Owner.Controllers
-//{
-//    public class OwnerController : Controller
-//    {
-//        private readonly ApplicationDbContext data;
-//        private readonly UserManager<ResortifyUser> userManager;
-
-//        public OwnerController(ApplicationDbContext data, UserManager<ResortifyUser> userManager)
-//        {
-//            this.data = data;
-//            this.userManager = userManager;
-//        }
-//        [Authorize]
-//        public IActionResult Become()
-//        {
-//            return View();
-//        }
-
-
-//        [HttpPost]
-//        [Authorize]
-//        public async Task<IActionResult> Become(BecomeOwnerViewModel owner)
-//        {
-//            ResortifyUser user = await userManager.FindByNameAsync(User.Identity.Name);
-//            Guid userId = user.Id;
-//            if (user == null)
-//            {
-//                return BadRequest();
-//            }
-
-//            var userIdAlreadyOwner = data
-//                .Owners
-//                .Any(d => d.UserId == userId);
-
-//            if (userIdAlreadyOwner)
-//            {
-//                return BadRequest();
-//            }
-//            var ownerAgency = owner.Agency.Trim();
-//            if (!ModelState.IsValid)
-//            {
-//                return View(owner);
-//            }
-//            var ownerData = new Owner
-//            {
-
-//                Agency = owner.Agency,
-//                UserId = userId,
-//            };
+namespace Resortify.Areas.Owner.Controllers
+{
+    [Authorize(Roles ="User")]
+    public class OwnerController : Controller
+    {
+        private readonly ApplicationDbContext data;
+        private readonly UserManager<ResortifyUser> userManager;
+        private readonly IUserRepository userRepository;
+        private readonly IUserService userService;
+        public OwnerController(ApplicationDbContext _data, UserManager<ResortifyUser> _userManager, IUserRepository _userRepository, IUserService _userService)
+        {
+            this.data = _data;
+            this.userManager = _userManager;
+            this.userRepository = _userRepository;
+            userService = _userService;
+        }
+        [Authorize]
+        public IActionResult Become()
+        {
+            return View();
+        }
 
 
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> Become(BecomeOwnerViewModel owner)
+        {
+            ResortifyUser user = await userService.UserByUsernameAsync(User.Identity.Name);
+            if (user == null)
+            {
+                return BadRequest();
+            }
 
-//            user.PhoneNumber = owner.PhoneNumber;
+            var userIdAlreadyOwner = await userService.IsOwnerAsync(user);
 
-//            data.Owners.Add(ownerData);
-//            data.SaveChanges();
+            if (userIdAlreadyOwner)
+            {
+                return BadRequest();
+            }
+            if (!ModelState.IsValid)
+            {
+                return View(owner);
+            }
+            var result = await userService.MakeOwnerAsync(user);
 
-//            return RedirectToAction(nameof(HomeController.Index), "Home");
-//        }
-//    }
-//}
+            user.PhoneNumber = owner.PhoneNumber;
+
+            data.SaveChanges();
+
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+    }
+}

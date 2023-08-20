@@ -6,7 +6,7 @@ namespace Resortify.Data.Models
     public class Rent
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public DateTime RentStartDate { get; set; }
         [Required]

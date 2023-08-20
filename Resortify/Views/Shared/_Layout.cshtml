@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using Microsoft.EntityFrameworkCore;
 @using Resortify.Data.Models;
+@using Resortify.Services;
 
 @inject SignInManager<ResortifyUser> SignInManager
+@inject IUserService UserService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,8 +35,9 @@
                         </li>
                         @if (SignInManager.IsSignedIn(User))
                         {
-
-                            bool isOwner = User.IsInRole("Owner");
+                           ResortifyUser user = await UserService.GetByUsernameAsync(User.Identity.Name);
+                            bool isOwner =  await UserService.IsOwnerAsync(user);
+                            bool isAdmin = await UserService.IsAdminAsync(user);
                             if (isOwner)
                             {
                                 <li class="nav-item">
@@ -44,9 +47,11 @@
                             else
                             {
                                 <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Become">Become an owner</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Owner" asp-action="Become">Become an owner</a>
                                 </li>
                             }
+
+                          
                         }
                     </ul>
                     <partial name="_LoginPartial" />

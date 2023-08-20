@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Resortify.Data.Models;
 using Resortify.Services;
-using Resortify.Repositories;
+using Resortify.Services;
 
 namespace Resortify.Controllers
 {
@@ -14,16 +14,16 @@ namespace Resortify.Controllers
         private readonly UserManager<ResortifyUser> userManager;
 
         private readonly SignInManager<ResortifyUser> signInManager;
-        private readonly IUserRepository userRepository;
+        private readonly IUserService userService;
 
         public UserController(
             UserManager<ResortifyUser> _userManager,
             SignInManager<ResortifyUser> _signInManager,
-            IUserRepository _userRepository)
+            IUserService _userService)
         {
             userManager = _userManager;
             signInManager = _signInManager;
-            userRepository = _userRepository;
+            userService = _userService;
         }
 
         [HttpGet]
@@ -59,15 +59,11 @@ namespace Resortify.Controllers
             };
 
 
-            var madeUser =  await userRepository.MakeUserAsync(user, model.Password);
+            var madeUser =  await userService.MakeUserAsync(user, model.Password);
 
             if (madeUser == true)
             {
-                var madeAdmin = await userRepository.MakeAdminAsync(user);
-                if (madeAdmin)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
+                var madeAdmin = await userService.MakeAdminAsync(user);
                 return RedirectToAction("Login", "User");
             }
 

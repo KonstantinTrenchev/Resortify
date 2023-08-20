@@ -14,7 +14,7 @@ namespace Resortify.Data.Models
         }
 
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
         [MaxLength(MaxAccomodationNameLength)]
         public string Name { get; set; }
@@ -24,6 +24,8 @@ namespace Resortify.Data.Models
         public Accomodation_Type Type { get; set; }
         public ICollection<Comment> AccomodationComments { get; set; }
         public ResortifyUser Owner { get; set; }
+        [ForeignKey(nameof(Owner))]
+        public string OwnerId { get; set; }
         public int MaxRenterCount { get; set; }
         public string ImageUrl { get; set; }
         public ICollection<Rent> AccomoditionRents { get; set; }

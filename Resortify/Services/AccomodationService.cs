@@ -1,0 +1,83 @@
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Resortify.Data;
+using Resortify.Data.Enums;
+using Resortify.Data.Models;
+using Resortify.Models.Accomodation;
+using Resortify.Services.Models;
+using System.Drawing.Drawing2D;
+
+namespace Resortify.Services
+{
+    public class AccomodationService : IAccomodationService
+
+    {
+        private readonly ApplicationDbContext data;
+        private readonly AutoMapper.IConfigurationProvider mapper;
+
+        public AccomodationService(ApplicationDbContext data, IMapper mapper)
+        {
+            this.data = data;
+            this.mapper = mapper.ConfigurationProvider;
+        }
+        public IEnumerable<AccomodationServiceModel> ByUser(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Create(string name, Accomodation_Type type, string description, string imageUrl, string ownerId)
+        {
+            var accomodation = new Accomodation
+            {
+                Name = name,
+                Type = type,
+                Description = description,
+                ImageUrl = imageUrl,
+               
+                OwnerId
+                = ownerId,
+            };
+
+            this.data.Accomodations.Add(accomodation);
+            this.data.SaveChanges();
+
+            return accomodation.Id;
+        }
+
+        public AccomodationDetailsViewModel Details(int accomodationId)
+        {
+          return  this.data
+                            .Accomodations
+                            .Where(c => c.Id == accomodationId)
+                            .ProjectTo<AccomodationDetailsViewModel>(this.mapper)
+                            .FirstOrDefault();
+        }
+
+        public bool Edit(int id,string name, Accomodation_Type type, string description, string imageUrl, int ownerId)
+        {
+            var accomodationData = this.data.Accomodations.Find(id);
+
+            if (accomodationData == null)
+            {
+                return false;
+            }
+
+            accomodationData.Brand = brand;
+            accomodationData.Model = type;
+            accomodationData.Description = description;
+            accomodationData.ImageUrl = imageUrl;
+            accomodationData.Year = year;
+            accomodationData.CategoryId = categoryId;
+            accomodationData.IsPublic = isPublic;
+
+            this.data.SaveChanges();
+
+            return true;
+        }
+
+        public bool IsByOwner(int carId, int dealerId)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

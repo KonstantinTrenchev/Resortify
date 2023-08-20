@@ -8,6 +8,7 @@ namespace Resortify.Repositories
         Task<bool> MakeOwnerAsync(ResortifyUser user);
         bool IsOwner(ResortifyUser user);
         Task<bool> MakeAdminAsync(ResortifyUser user);
+        Task<ResortifyUser> GetByUsernameAsync(string email);
         bool IsAdmin(ResortifyUser user);
         Task<bool> MakeUserAsync(ResortifyUser user, string password);
     }

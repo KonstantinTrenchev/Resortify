@@ -16,6 +16,12 @@ namespace Resortify.Repositories
             this.userManager = userManager;
         }
 
+        public async Task<ResortifyUser> GetByUsernameAsync(string username)
+        {
+          ResortifyUser user = await  userManager.FindByNameAsync(username);
+            return user;
+        }
+
         public int GetCount()
             => context.Users.Count();
 
