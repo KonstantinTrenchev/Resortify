@@ -101,10 +101,10 @@ namespace Resortify.Controllers
             };
             return View(accomodationDetails);
         }
-        public async Task<IActionResult> Mine(string id)
+        public async Task<IActionResult> All()
         {
 
-            var myAccomodations = this.accomodationService.ByUser(this.User.Id());
+            var myAccomodations = accomodationService.All();
 
             return View(myAccomodations);
         }

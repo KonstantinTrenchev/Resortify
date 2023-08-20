@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Resortify.Data;
 using Resortify.Data.Enums;
 using Resortify.Data.Models;
@@ -13,12 +15,35 @@ namespace Resortify.Services
 
     {
         private readonly ApplicationDbContext data;
+        private readonly UserManager<ResortifyUser> userManager;
         private readonly AutoMapper.IConfigurationProvider mapper;
 
-        public AccomodationService(ApplicationDbContext data, IMapper mapper)
+        public AccomodationService(ApplicationDbContext data, IMapper mapper, UserManager<ResortifyUser> _userManager)
         {
             this.data = data;
             this.mapper = mapper.ConfigurationProvider;
+            userManager = _userManager;
+        }
+        public IEnumerable<AccomodationServiceModel> All()
+        {
+            var accommodations = data.Accomodations.ToList();
+            var accomodationViewModels = new List<AccomodationServiceModel>();
+            
+                foreach (var accomodation in accommodations)
+            {
+                var owner =  userManager.Users.FirstOrDefault(u => u.Id == accomodation.OwnerId);
+                var accomodationViewModel = new AccomodationServiceModel
+                {
+                    Id = accomodation.Id,
+                    Name = accomodation.Name,
+                    ImageUrl = accomodation.ImageUrl,
+                    Type = Enum.GetName(accomodation.Type),
+                    OwnerId = owner.Id,
+                    OwnerName = owner.FullName                
+                };
+                accomodationViewModels.Add(accomodationViewModel);
+            }
+            return accomodationViewModels;
         }
         public IEnumerable<AccomodationServiceModel> ByUser(string userId)
         {

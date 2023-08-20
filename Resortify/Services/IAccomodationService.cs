@@ -6,6 +6,7 @@ namespace Resortify.Services
 {
     public interface IAccomodationService
     {
+        public IEnumerable<AccomodationServiceModel> All();
         AccomodationDetailsViewModel Details(int carId);
 
         int Create(
