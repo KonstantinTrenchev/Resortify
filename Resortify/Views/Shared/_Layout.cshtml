@@ -47,6 +47,12 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Accomodation" asp-action="All">All Accomodations</a>
                                 </li>
                             }
+                            else if (isAdmin)
+                            {
+                                 <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Accomodation" asp-action="All">All Accomodations</a>
+                                </li>
+                            }
                             else
                             {
                                 <li class="nav-item">

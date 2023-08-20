@@ -80,6 +80,7 @@ namespace Resortify.Controllers
             data.SaveChanges();
             return RedirectToAction(nameof(Details), new { id = accomodationData.Id });
         }
+        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             Accomodation accomodation = await data.Accomodations.FindAsync(id);
@@ -88,6 +89,7 @@ namespace Resortify.Controllers
             {
                 return BadRequest();
             }
+            
             AccomodationDetailsViewModel accomodationDetails = new AccomodationDetailsViewModel
             {
                 Id = accomodation.Id,
@@ -99,14 +101,103 @@ namespace Resortify.Controllers
                 Description = accomodation.Description,
                 MaxRenterCount = accomodation.MaxRenterCount.ToString()
             };
+            switch (accomodation.MaxRenterCount)
+            {
+                case 1:
+                    accomodationDetails.Type = "Room";
+                    break;
+                case 2:
+                    accomodationDetails.Type = "Studio";
+                    break;
+                case 4:
+                    accomodationDetails.Type = "Apartment";
+                    break;
+                case 6:
+                    accomodationDetails.Type = "House";
+                    break;
+
+                default:
+                    break;
+            }
             return View(accomodationDetails);
         }
+        [AllowAnonymous]
         public async Task<IActionResult> All()
         {
 
             var myAccomodations = accomodationService.All();
 
             return View(myAccomodations);
+        }
+        [Authorize("Owner,Admin")]
+        public async Task <IActionResult> Edit(int id)
+        {
+            var userId = this.User.Id();
+            var user = await userManager.FindByIdAsync(userId);
+            bool isOwner = await this.userService.IsOwnerAsync(user);
+            bool isAdmin = await this.userService.IsAdminAsync(user);
+
+            if (!isOwner && !isAdmin)
+            {
+                return RedirectToAction(nameof(OwnerController.Become), "Dealers");
+            }
+
+            var accomodation = this.accomodationService.Details(id);
+
+            if (accomodation.OwnerId != userId && !isAdmin)
+            {
+                return Unauthorized();
+            }
+
+            var carForm = new AccomodationCreateViewModel
+            {
+                ImageUrl = accomodation.ImageUrl,
+                Description = accomodation.Description,
+                Name = accomodation.Name
+
+            };
+
+            return View(carForm);
+        }
+
+        [HttpPost]
+        [Authorize("Owner,Admin")]
+        public async Task<IActionResult> Edit(int id, AccomodationCreateViewModel accomodation)
+        {
+            var _accomodation = data.Accomodations.First(a => a.Id == id);
+            var owner =userManager.Users.First(o => o.Id == _accomodation.OwnerId);
+            bool isAdmin = await this.userService.IsAdminAsync(owner);
+            if (owner == null && !User.IsAdmin())
+            {
+                return RedirectToAction(nameof(OwnerController.Become), "Dealers");
+            }
+
+            
+            if (!ModelState.IsValid)
+            {
+
+                return View(accomodation);
+            }
+
+            if (_accomodation == null && !isAdmin)
+            {
+                return BadRequest();
+            }
+
+            var edited = this.accomodationService.Edit(
+                id,
+                accomodation.Name,
+                accomodation.Type,
+                accomodation.Description,
+                accomodation.ImageUrl,
+                owner.Id);
+            if (!edited)
+            {
+                return BadRequest();
+            }
+
+
+            return RedirectToAction(nameof(Details), new { id,});
         }
     }
 }

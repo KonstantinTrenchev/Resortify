@@ -10,6 +10,7 @@
         public string OwnerName { get; set; }
         public string OwnerAgency { get; set; }
         public string OwnerPhoneNumber { get; set; }
+        public string Type { get; set; }
         public string MaxRenterCount { get; set; }
     }
 }

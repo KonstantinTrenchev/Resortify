@@ -10,16 +10,16 @@
         ResortifyUser user = await userManager.FindByIdAsync(accomodation.OwnerId);
         <div class="col-md-4">
             <div class="card mb-3">
-                <img class="card-img-top" src="@accomodation.ImageUrl" alt="@accomodation.Name @accomodation.Type - @accomodation.OwnerName ()">
+                <img class="card-img-top" src="@accomodation.ImageUrl" alt="@accomodation.Name @accomodation.Type - @accomodation.OwnerName">
                 <div class="card-body text-center">
-                    <h5 class="card-title text-center">@accomodation.Name  @accomodation.Type @accomodation.OwnerName ()</h5>
+                    <h5 class="card-title text-center">@accomodation.Name  @accomodation.Type @accomodation.OwnerName</h5>
                     <a asp-controller="Accomodation" asp-action="Details" asp-route-id="@accomodation.Id" class="btn btn-primary">View</a>
-                    @if(User.Identity.Name == user.UserName)
+         @*           @if(User.Identity.Name == user.UserName)
 
                     {
                         <a asp-controller="Accomodition" asp-action="Edit" asp-route-id="@accomodation.Id" class="btn btn-warning">Edit</a>
                         <a asp-controller="Accomodition" asp-action="Delete" asp-route-id="@accomodation.Id" class="btn btn-danger">Delete</a>
-                    }
+                    }*@
                 </div>
             </div>
         </div>
