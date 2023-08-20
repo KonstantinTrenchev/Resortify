@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "8MXji5swFqcwmk/L61ijz0DghI6LYeKx+SJrcOgLdbReYWUr/V5XvmxBPE4eRoxOm1ETdc2I8nk+b7D8BWt2Yg==",
+  "dgSpecHash": "q6z1WUzvZNsr+oTEnTuXWUhKhqkCfymJKVzQRAepRdV9K1unj8d/cKc7SBq26fWp8CxYWvXlD9GYC08dXTD9xA==",
   "success": true,
   "projectFilePath": "C:\\Users\\TOP\\Desktop\\Resortify\\Resortify\\Resortify.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\TOP\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\TOP\\.nuget\\packages\\automapper.extensions.enummapping\\3.1.0\\automapper.extensions.enummapping.3.1.0.nupkg.sha512",
+    "C:\\Users\\TOP\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\TOP\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\TOP\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\TOP\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

@@ -17,12 +17,14 @@ namespace Resortify.Controllers
         private readonly ApplicationDbContext data;
         private readonly UserManager<ResortifyUser> userManager;
         private readonly IUserService userService;
+        private readonly IAccomodationService accomodationService;
 
-        public AccomodationController(ApplicationDbContext data, UserManager<ResortifyUser> userManager, IUserService _userService)
+        public AccomodationController(ApplicationDbContext data, UserManager<ResortifyUser> userManager, IUserService _userService,IAccomodationService _accomodationService)
         {
             this.data = data;
             this.userManager = userManager;
             userService= _userService;
+            accomodationService= _accomodationService;
         }
         [HttpGet]
         public IActionResult Add()
@@ -102,7 +104,7 @@ namespace Resortify.Controllers
         public async Task<IActionResult> Mine(string id)
         {
 
-            var myAccomodations = this.cars.ByUser(this.User.Id());
+            var myAccomodations = this.accomodationService.ByUser(this.User.Id());
 
             return View(myAccomodations);
         }

@@ -256,3 +256,6 @@ C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\Resortify.RazorAssembl
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\Resortify.RazorAssemblyInfo.cs
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css
 C:\Users\TOP\Desktop\Resortify\Resortify\obj\Debug\net6.0\scopedcss\projectbundle\Resortify.bundle.scp.css
+C:\Users\TOP\Desktop\Resortify\Resortify\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\TOP\Desktop\Resortify\Resortify\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\Users\TOP\Desktop\Resortify\Resortify\bin\Debug\net6.0\AutoMapper.Extensions.EnumMapping.dll

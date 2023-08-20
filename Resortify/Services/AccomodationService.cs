@@ -22,10 +22,17 @@ namespace Resortify.Services
         }
         public IEnumerable<AccomodationServiceModel> ByUser(string userId)
         {
-            throw new NotImplementedException();
+           return GetAccomodations(this.data
+                 .Accomodations
+                 .Where(c => c.OwnerId == userId));
         }
-
-        public int Create(string name, Accomodation_Type type, string description, string imageUrl, string ownerId)
+        private IEnumerable<AccomodationServiceModel> GetAccomodations(IQueryable<Accomodation> accomodationQuery)
+        {
+          return   accomodationQuery
+                .ProjectTo<AccomodationServiceModel>(this.mapper)
+                .ToList();
+        }
+    public int Create(string name, Accomodation_Type type, string description, string imageUrl, string ownerId)
         {
             var accomodation = new Accomodation
             {
@@ -53,7 +60,7 @@ namespace Resortify.Services
                             .FirstOrDefault();
         }
 
-        public bool Edit(int id,string name, Accomodation_Type type, string description, string imageUrl, int ownerId)
+        public bool Edit(int id,string name, Accomodation_Type type, string description, string imageUrl, string ownerId)
         {
             var accomodationData = this.data.Accomodations.Find(id);
 
@@ -62,22 +69,22 @@ namespace Resortify.Services
                 return false;
             }
 
-            accomodationData.Brand = brand;
-            accomodationData.Model = type;
+            accomodationData.Name = name;
+            accomodationData.Type = type;
             accomodationData.Description = description;
             accomodationData.ImageUrl = imageUrl;
-            accomodationData.Year = year;
-            accomodationData.CategoryId = categoryId;
-            accomodationData.IsPublic = isPublic;
 
             this.data.SaveChanges();
 
             return true;
         }
 
-        public bool IsByOwner(int carId, int dealerId)
+        public bool IsByOwner(int carId, string dealerId)
         {
-            throw new NotImplementedException();
+           return this.data
+                 .Accomodations
+                 .Any(c => c.Id == carId && c.OwnerId == dealerId);
         }
+
     }
 }

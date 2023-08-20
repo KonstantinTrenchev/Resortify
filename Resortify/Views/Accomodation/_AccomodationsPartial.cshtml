@@ -12,7 +12,7 @@
                 <img class="card-img-top" src="@accomodation.ImageUrl" alt="@accomodation.Name @accomodation.Type - @accomodation.OwnerName ()">
                 <div class="card-body text-center">
                     <h5 class="card-title text-center">@accomodation.Name  @accomodation.Type @accomodation.OwnerName ()</h5>
-                    <a asp-controller="Accomodation" asp-action="Details" asp-route-id="@accomodation.Id" asp-route-information="@accomodation.Name-@accomodation.Type-@accomodation.OwnerName"*@ class="btn btn-primary">View</a>
+                    <a asp-controller="Accomodation" asp-action="Details" asp-route-id="@accomodation.Id" class="btn btn-primary">View</a>
                     @user = await UserService.GetByUsernameAsync(this.User.Identity.Name)
                     @if (ViewBag.AllowCarEdit == true ||UserService.IsAdminAsync(user))
                     {
